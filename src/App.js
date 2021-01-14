@@ -2,10 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import Todo from './Todo';
 import db from './firebase';
-import './App.css';
 import firebase from 'firebase';
 
+// Style
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  title: { margin: '50px 0', fontSize: 50, color: 'royalblue'},
+  app: {  textAlign: 'center' },
+  list: { 
+    width: '50%',
+    margin: '50px auto 0',
+    padding: '50px',
+    textAlign: 'center',
+    borderLeft: '2px solid #eee',
+    borderRight: '2px solid #eee',
+    '& li':{
+      borderBottom: '2px solid skyblue',
+    }
+  },
+}))
 function App() {
+  const classes = useStyles();
   const [ todos, setTodos ] = useState([])
   const [ input, setInput ] = useState('');
   
@@ -27,8 +45,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Todo List</h1>
+    <div className={classes.app}>
+      <h1 className={classes.title}>React Todo List</h1>
       <form>
         <FormControl>
           <InputLabel>Write a Todo</InputLabel>
@@ -38,9 +56,9 @@ function App() {
           Add</Button>
         {/* <button type="submit" onClick={addTodo}>Add</button> */}
       </form>
-      <ul>
+      <ul className={classes.list}>
         {todos.map( (todo) => 
-          <Todo todo={todo}/>
+          <Todo todo={todo} className={classes.listItem}/>
           // <li>{todo}</li>
         )}
       </ul>
